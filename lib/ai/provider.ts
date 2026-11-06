@@ -17,7 +17,7 @@ export interface AIResponse {
 }
 
 // Built-in intelligent response generator for portfolio queries when external API key is not configured
-function getOfflinePortfolioResponse(query: string): string {
+export function getOfflinePortfolioResponse(query: string): string {
   const q = query.toLowerCase();
 
   if (q.includes("who is") || q.includes("introduce") || q.includes("about") || q.includes("ilambarithi")) {
@@ -85,7 +85,7 @@ function getOfflinePortfolioResponse(query: string): string {
 }
 
 // Built-in intelligent response generator for AI/ML career questions when offline
-function getOfflineCareerResponse(query: string): string {
+export function getOfflineCareerResponse(query: string): string {
   const q = query.toLowerCase();
 
   if (q.includes("machine learning") && (q.includes("explain") || q.includes("what is"))) {

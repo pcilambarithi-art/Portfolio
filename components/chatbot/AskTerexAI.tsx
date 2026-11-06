@@ -15,7 +15,12 @@ import {
   ChevronDown,
   Info,
 } from "lucide-react";
-import { AIChatMode, ChatMessage } from "@/lib/ai/provider";
+import {
+  AIChatMode,
+  ChatMessage,
+  getOfflinePortfolioResponse,
+  getOfflineCareerResponse,
+} from "@/lib/ai/provider";
 
 const suggestedQuestions = {
   portfolio: [
@@ -92,11 +97,17 @@ export default function AskTerexAI() {
         },
       ]);
     } catch (err: any) {
+      // Graceful fallback for static GitHub Pages hosting
+      const fallbackContent =
+        mode === "portfolio"
+          ? getOfflinePortfolioResponse(text)
+          : getOfflineCareerResponse(text);
+
       setMessages((prev) => [
         ...prev,
         {
           role: "assistant",
-          content: `⚠️ ${err.message || "An error occurred while connecting with Terex AI."}`,
+          content: fallbackContent,
         },
       ]);
     } finally {
